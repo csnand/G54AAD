@@ -1,0 +1,32 @@
+# To Compile and Run Automatically
+
+# this file can be directly run as bash file
+# to do this, just executing
+# bash instructions.txt
+# in the command line
+
+
+# To Compile and Run Manually
+
+# The src/ folder contains all source code
+# the testSearch.txt file is downloaded test file from course web page
+# In order to compile the program,
+# first, change the current working firection to src/
+# by executing the following command
+
+cd src
+
+# the RBTree / folder inside the src/ folder contains
+# the implematation of red black tree
+# and a parser to parse test operations from file
+# the searchtree.hs file contains the main function of the program
+# to compile the program, just executing the following command
+
+ghc -o searchtree searchtree.hs
+
+# after that an executable will e generated.
+# to run the program, just executing it
+# with path to a test file as an argument.
+# e.g. ./searchtree filePath
+
+./shortpaths ../testGraph.txt
