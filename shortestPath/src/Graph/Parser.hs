@@ -134,6 +134,19 @@ deleteOp = do _ <- symbol "delete"
               k <- integer
               return (Delete k)
 
+type Vertix = (Int, Int, Double) 
+readList :: Parser Vertix
+readList do _ <- symbol "("
+            i <- integer
+            _ <- symbol ","
+            j <- integer
+            _ <- symbol ","
+            k <- integer
+            _ <- symbol "("
+            return (i, j, k)
+
+
+
 -- the [] case means parsing error which indicates that input string
 -- contains illegal characters.
 -- parsing will stop where first illegal character occurs
