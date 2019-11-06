@@ -1,6 +1,7 @@
 import java.io.File;
-import java.nio.file.Path;
+import java.io.FileNotFoundException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShortPaths {
@@ -12,9 +13,32 @@ public class ShortPaths {
             return;
         }
 
-        String fileName = args[1];
-        Path path = Paths.get(fileName);
-        Scanner sc = new Scanner(System.in);
+        ShortPaths s = new ShortPaths();
+        s.readFile(Paths.get("src/test/testGraph.txt").toAbsolutePath().toString());
+    }
 
+    public void readFile(String path) {
+
+        String testGraph = "";
+        try {
+            Scanner sc = new Scanner(new File(path));
+            while (sc.hasNext()){
+                testGraph += sc.next();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(testGraph.replace(")(", "\n")
+                                    .replace("(", "")
+                                    .replace(")", "")
+                                    .replace(",", " "));
+
+        ArrayList<int[]> graphArr = new ArrayList<>();
+        String[] testGraphList = testGraph.split("\n");
+        for (String list : testGraphList){
+            String[] arr = list.split(" ");
+            System.out.println(arr);
+        }
     }
 }
