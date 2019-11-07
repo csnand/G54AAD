@@ -19,9 +19,9 @@ public class Dijkstra {
 
     public void shortestPath(){
         Path result = execDijkstra();
-        System.out.printf("%d --> %d :  %.2f", fromV.getCurrentVertex(),
-                                                      toV.getCurrentVertex(),
-                                                      result == null ? Integer.MAX_VALUE : result.getCost());
+        System.out.printf("%d --> %d :  %.2f\n", fromV.getCurrentVertex(),
+                                                 toV.getCurrentVertex(),
+                                                 result == null ? Integer.MAX_VALUE : result.getCost());
     }
 
     private Path execDijkstra(){
@@ -29,9 +29,12 @@ public class Dijkstra {
             // if current Vertex equals to
             // the destination, return directly
             Path firstPath = openList.get(0);
-            if (firstPath.getCurrentVertex().getCurrentVertex() == toV.getCurrentVertex()) {
+            openList.remove(0);
+//            if (firstPath.getCurrentVertex().getCurrentVertex() == toV.getCurrentVertex()) {
+            if (firstPath.getCurrentVertex() == toV) {
                 return firstPath;
             }
+
             //explore current vertex
             for (Edge e : firstPath.getCurrentVertex().getEdges()){
                 //make a copy of path to be explored
@@ -44,7 +47,8 @@ public class Dijkstra {
                     int removeV = 0;
                     for (int i = 0; i < openList.size(); i++){
                         Path temp = openList.get(i);
-                        if (temp.getCurrentVertex().getCurrentVertex() == e.toV().getCurrentVertex()){
+//                        if (temp.getCurrentVertex().getCurrentVertex() == e.toV().getCurrentVertex()){
+                        if (temp.getCurrentVertex() == e.toV()){
                             removeV = i;
                             break;
                         }
@@ -67,7 +71,8 @@ public class Dijkstra {
 
     private boolean isInPath(Vector<Path> paths, Vertex v){
         for (Path p : paths){
-            if (p.getCurrentVertex().getCurrentVertex() == v.getCurrentVertex()){
+//            if (p.getCurrentVertex().getCurrentVertex() == v.getCurrentVertex()){
+            if (p.getCurrentVertex() == v){
                 return true;
             }
         }

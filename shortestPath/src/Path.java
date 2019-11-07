@@ -43,7 +43,6 @@ public class Path {
             if (p1.cost == p2.cost){
                 return 0;
             }
-
             return p1.cost > p2.cost ? 1 : -1;
         }
     }
