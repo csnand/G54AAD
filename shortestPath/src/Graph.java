@@ -10,12 +10,23 @@ public class Graph {
         parseGraph(graph);
     }
 
-    public void adjacencyList() {
-
+    public Vector adjacencyList() {
+        return  null;
     }
 
-    public void adjacencyGraph() {
+    public Vector adjacencyMatrix() {
+        return  null;
+    }
 
+    public Vector fromListToMatrix(Vector list) {
+        return null;
+    }
+
+    public Vector fromMatrixToList(Vector matrix) {
+        return null;
+    }
+
+    public void testConversion(){
     }
 
     public Vertex searchVertex(int vertex) {
@@ -27,7 +38,7 @@ public class Graph {
         return null;
     }
 
-    private void parseGraph(String graph){
+    private void parseGraph(String graph) {
         String[] graphList = graph.split("\n");
         for (String list : graphList) {
             String[] arr = list.split(" ");
@@ -47,7 +58,7 @@ public class Graph {
                 newVTo = new Vertex(vertexTo);
                 allVertices.add(newVTo);
             }
-            
+
             //add new edge to vertex and graph
             Edge newEdge = new Edge(newVFrom, newVTo, weight);
             allEdges.add(newEdge);

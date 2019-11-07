@@ -30,8 +30,6 @@ public class ShortPaths {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         return testGraph.replace(")(", "\n").replace("(", "").replace(")", "").replace(",", " ");
-
     }
 }

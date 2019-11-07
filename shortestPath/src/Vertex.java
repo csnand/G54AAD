@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.Vector;
 
 public class Vertex {
@@ -21,8 +22,11 @@ public class Vertex {
         return toVertices;
     }
 
-    public String toString() {
-        return super.toString();
+    class VertexComparator implements Comparator<Vertex> {
+        @Override
+        public int compare(Vertex v1, Vertex v2) {
+            return v1.getCurrentVertex() - v2.getCurrentVertex();
+        }
     }
 
 }
