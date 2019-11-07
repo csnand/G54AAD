@@ -14,31 +14,26 @@ public class ShortPaths {
         }
 
         ShortPaths s = new ShortPaths();
-        s.readFile(Paths.get("src/test/testGraph.txt").toAbsolutePath().toString());
+        String preParsedGraph = s.readFile(Paths.get("src/test/testGraph.txt").toAbsolutePath().toString());
+
+        Graph g = new Graph(preParsedGraph);
     }
 
-    public void readFile(String path) {
+    // this function will read test file, convert graph from tuples to
+    // INT INT DOUBLE format and return the result
+    public String readFile(String path) {
 
         String testGraph = "";
         try {
             Scanner sc = new Scanner(new File(path));
-            while (sc.hasNext()){
+            while (sc.hasNext()) {
                 testGraph += sc.next();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        System.out.println(testGraph.replace(")(", "\n")
-                                    .replace("(", "")
-                                    .replace(")", "")
-                                    .replace(",", " "));
+        return testGraph.replace(")(", "\n").replace("(", "").replace(")", "").replace(",", " ");
 
-        ArrayList<int[]> graphArr = new ArrayList<>();
-        String[] testGraphList = testGraph.split("\n");
-        for (String list : testGraphList){
-            String[] arr = list.split(" ");
-            System.out.println(arr);
-        }
     }
 }
