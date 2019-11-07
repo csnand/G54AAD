@@ -1,8 +1,9 @@
 import java.util.Vector;
 
 public class Graph {
-    public Vector<Vertex> allVertices;
-    public Vector<Edge> allEdges;
+    private Vector<Vertex> allVertices;
+    private Vector<Edge> allEdges;
+    private Vertex origin;
 
     public Graph(String graph) {
         allVertices = new Vector<>();
@@ -29,6 +30,19 @@ public class Graph {
     public void testConversion(){
     }
 
+    public Vector<Vertex> getAllVertices(){
+        return allVertices;
+    }
+
+    public Vector<Edge> getAllEdges(){
+        return allEdges;
+    }
+
+    public Vertex getOrigin(){
+        return origin;
+    }
+
+
     public Vertex searchVertex(int vertex) {
         for (Vertex v : allVertices) {
             if (v.getCurrentVertex() == vertex) {
@@ -52,6 +66,9 @@ public class Graph {
             if (newVFrom == null) {
                 newVFrom = new Vertex(vertexName);
                 allVertices.add(newVFrom);
+                if (newVFrom.getCurrentVertex() == 0){
+                    origin = newVFrom;
+                }
             }
             Vertex newVTo = searchVertex(vertexTo);
             if (newVTo == null) {
@@ -64,8 +81,6 @@ public class Graph {
             allEdges.add(newEdge);
 
             newVFrom.addEdge(newEdge);
-
-//            System.out.printf("%d -> %d : %f\n", vertexName, vertexTo, weight);
         }
     }
 

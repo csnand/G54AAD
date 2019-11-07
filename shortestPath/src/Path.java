@@ -27,7 +27,16 @@ public class Path {
         cost += e.getWeight();
     }
 
-    class PathComparator implements Comparator<Path>{
+    public Vertex getCurrentVertex() {
+        return currentVertex;
+    }
+
+    public double getCost(){
+        return cost;
+    }
+
+
+    public static class PathComparator implements Comparator<Path>{
 
         @Override
         public int compare(Path p1, Path p2) {
