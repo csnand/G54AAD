@@ -13,15 +13,13 @@ public class ShortPaths {
             return;
         }
 
-        ShortPaths s = new ShortPaths();
-        String preParsedGraph = s.readFile(Paths.get("src/test/testGraph.txt").toAbsolutePath().toString());
-
+        String preParsedGraph = readFile(Paths.get("src/test/testGraph.txt").toAbsolutePath().toString());
         Graph g = new Graph(preParsedGraph);
     }
 
     // this function will read test file, convert graph from tuples to
     // INT INT DOUBLE format and return the result
-    public String readFile(String path) {
+    public static String readFile(String path) {
 
         String testGraph = "";
         try {
