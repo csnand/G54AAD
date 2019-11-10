@@ -26,8 +26,8 @@ public class Graph {
         return aList;
     }
 
-    public void printAjacencyList(){
-        ArrayList<ArrayList<Edge>> aList = toAdjacencyList();
+    public void printAjacencyList(ArrayList<ArrayList<Edge>> aList){
+//        ArrayList<ArrayList<Edge>> aList = toAdjacencyList();
         System.out.printf("Ajacency List \n");
         for (ArrayList<Edge> edges : aList){
             System.out.printf("%d -> [ ", edges.get(0).fromV().getCurrentVertex());
@@ -61,8 +61,8 @@ public class Graph {
         return aMatrix;
     }
 
-    public void printAjacencyMatrix(){
-        ArrayList<ArrayList<Edge>> aMatrix = toAdjacencyMatrix();
+    public void printAjacencyMatrix(ArrayList<ArrayList<Edge>> aMatrix){
+//        ArrayList<ArrayList<Edge>> aMatrix = toAdjacencyMatrix();
         //print table
         System.out.printf("Ajacency Matrix \n\t\t");
         for (Vertex v : allVertices){
@@ -81,14 +81,51 @@ public class Graph {
     }
 
     public ArrayList fromListToMatrix(ArrayList<ArrayList<Edge>> list) {
-        return null;
+        ArrayList<ArrayList<Edge>> aList = new ArrayList<>();
+        aList.addAll(list);
+
+        for (ArrayList<Edge> edges : aList){
+            if (edges.size() == aList.size()){
+                continue;
+            }
+            for (int i = 0; i < edges.size(); i++){
+                if (edges.get(i) == null){
+                    continue;
+                }
+                if (edges.get(i).toV().getCurrentVertex() != i){
+                    edges.add(i, null);
+                }
+            }
+            if (edges.size() != aList.size()){
+                for (int i = 0, j = aList.size() - edges.size(); i < j; i++){
+                    edges.add(null);
+                }
+            }
+        }
+
+        return aList;
     }
 
     public ArrayList fromMatrixToList(ArrayList<ArrayList<Edge>> matrix) {
-        return null;
+        ArrayList<ArrayList<Edge>> aMatrix = new ArrayList<>();
+        aMatrix.addAll(matrix);
+
+        aMatrix.removeIf(edges -> edges == null);
+        for (ArrayList<Edge> edges : aMatrix){
+            edges.removeIf(edge -> edge == null);
+        }
+        return aMatrix;
     }
 
+    //this function will print
+    //true
+    //true
     public void testConversion() {
+        //the result of direct conversion from Graph class to Ajacency List
+        //should equals to first convert to Ajacency Matrix then convert to Ajacency List
+        System.out.println(toAdjacencyList().equals(fromMatrixToList(toAdjacencyMatrix())));
+        //same idea as above
+        System.out.println(toAdjacencyList().equals(fromListToMatrix(toAdjacencyList())));
     }
 
     public Vertex getOrigin(){
