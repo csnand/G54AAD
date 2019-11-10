@@ -89,14 +89,6 @@ public class Graph {
         return allVertices;
     }
 
-    public ArrayList<Edge> getAllEdges() {
-        return allEdges;
-    }
-
-    public Vertex getOrigin() {
-        return origin;
-    }
-
     public Vertex searchVertex(int vertex) {
         for (Vertex v : allVertices) {
             if (v.getCurrentVertex() == vertex) {
