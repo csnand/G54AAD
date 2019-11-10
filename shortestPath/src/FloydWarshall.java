@@ -43,17 +43,17 @@ public class FloydWarshall {
         Collections.sort(allVertices, new Vertex.VertexComparator());
 
         //print table
-        System.out.printf("Floyd-Warshall Algorithm \n\t\t");
+        System.out.printf("Floyd-Warshall Algorithm \n\t");
         for (Vertex v : allVertices){
-            System.out.printf("%d  \t\t", v.getCurrentVertex());
+            System.out.printf("%d  \t", v.getCurrentVertex());
         }
         System.out.printf("\n");
 
         //print matrix
         for (int i = 0; i < aMatrix.length; i++){
-            System.out.printf("%d\t\t", allVertices.get(i).getCurrentVertex());
+            System.out.printf("%d\t", allVertices.get(i).getCurrentVertex());
             for (Double e : aMatrix[i]){
-                System.out.printf("%s \t", e == Double.MAX_VALUE ? ".\t" : Double.toString(e));
+                System.out.printf("%s \t", e == Double.MAX_VALUE ? "." : Double.toString(e));
             }
             System.out.printf("\n");
         }

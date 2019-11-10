@@ -64,17 +64,17 @@ public class Graph {
     public void printAjacencyMatrix(ArrayList<ArrayList<Edge>> aMatrix){
 //        ArrayList<ArrayList<Edge>> aMatrix = toAdjacencyMatrix();
         //print table
-        System.out.printf("Ajacency Matrix \n\t\t");
+        System.out.printf("Ajacency Matrix \n\t");
         for (Vertex v : allVertices){
-            System.out.printf("%d  \t\t", v.getCurrentVertex());
+            System.out.printf("%d  \t", v.getCurrentVertex());
         }
         System.out.printf("\n");
 
         //print matrix
         for (int i = 0; i < aMatrix.size(); i++){
-            System.out.printf("%d\t\t", allVertices.get(i).getCurrentVertex());
+            System.out.printf("%d\t", allVertices.get(i).getCurrentVertex());
             for (Edge e : aMatrix.get(i)){
-                System.out.printf("%s \t", e == null ? ".\t" : Double.toString(e.getWeight()));
+                System.out.printf("%s \t", e == null ? "." : Double.toString(e.getWeight()));
             }
             System.out.printf("\n");
         }
