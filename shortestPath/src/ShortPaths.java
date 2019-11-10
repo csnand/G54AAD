@@ -1,6 +1,4 @@
 import java.io.*;
-import java.util.Collections;
-
 
 public class ShortPaths {
 
@@ -11,21 +9,22 @@ public class ShortPaths {
             return;
         }
 
+        //pre parsing test file
         ShortPaths shortPaths = new ShortPaths();
         String preParsedGraph = shortPaths.readFile(args[0]);
+        //convert test file to Graph class
         Graph g = new Graph(preParsedGraph);
         g.printAjacencyMatrix();
 
-//        Dijkstra dijkstra = new Dijkstra();
-//        dijkstra.shortestPath();
+        Dijkstra dijkstra = new Dijkstra(g.getAllVertices(), g.toAdjacencyMatrix());
+        dijkstra.shortestPath();
 
         FloydWarshall floydWarshall = new FloydWarshall(g.getAllVertices(), g.toAdjacencyMatrix());
         floydWarshall.shortestPath();
     }
 
-
     // this function will read test file, convert graph from tuples to
-    // INT INT DOUBLE format and return the result
+    //edges in INT INT DOUBLE format and return the result
     public String readFile(String path) {
 
         String testGraph = "";

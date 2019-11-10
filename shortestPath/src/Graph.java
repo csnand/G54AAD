@@ -12,6 +12,9 @@ public class Graph {
         parseGraph(graph);
     }
 
+    //convert Graph class to Adjacency List
+    //instead of storing data in list of pair
+    //this implementation stores data in list of edge objects
     public ArrayList<ArrayList<Edge>> toAdjacencyList() {
         ArrayList<ArrayList<Edge>> aList = new ArrayList<>();
         Collections.sort(allVertices, new Vertex.VertexComparator());
@@ -37,6 +40,9 @@ public class Graph {
         }
     }
 
+    //convert Graph class to Adjacency Matrix
+    //instead of storing data in list of n * n array of doubles
+    //this implementation stores data in n * n array of edge objects
     public ArrayList<ArrayList<Edge>> toAdjacencyMatrix() {
         ArrayList<ArrayList<Edge>> aMatrix = new ArrayList<>();
         Collections.sort(allVertices, new Vertex.VertexComparator());
@@ -85,6 +91,10 @@ public class Graph {
     public void testConversion() {
     }
 
+    public Vertex getOrigin(){
+        return origin;
+    }
+
     public ArrayList<Vertex> getAllVertices() {
         return allVertices;
     }
@@ -98,7 +108,9 @@ public class Graph {
         return null;
     }
 
+    // convert edges into Graph class
     private void parseGraph(String graph) {
+        //convert to array of egdes
         String[] graphList = graph.split("\n");
         for (String list : graphList) {
             String[] arr = list.split(" ");
@@ -130,5 +142,4 @@ public class Graph {
             newVFrom.addEdge(newEdge);
         }
     }
-
 }
