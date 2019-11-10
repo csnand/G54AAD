@@ -1,13 +1,13 @@
 import java.util.Comparator;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Vertex {
     private int currentVertex;
-    private Vector<Edge> toVertices;
+    private ArrayList<Edge> toVertices;
 
     public Vertex(int currentVertex) {
         this.currentVertex = currentVertex;
-        toVertices = new Vector<>();
+        toVertices = new ArrayList<>();
     }
 
     public void addEdge(Edge e) {
@@ -18,7 +18,7 @@ public class Vertex {
         return currentVertex;
     }
 
-    public Vector<Edge> getEdges() {
+    public ArrayList<Edge> getEdges() {
         return toVertices;
     }
 

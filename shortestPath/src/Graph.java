@@ -1,40 +1,40 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Graph {
-    private Vector<Vertex> allVertices;
-    private Vector<Edge> allEdges;
+    private ArrayList<Vertex> allVertices;
+    private ArrayList<Edge> allEdges;
     private Vertex origin;
 
     public Graph(String graph) {
-        allVertices = new Vector<>();
-        allEdges = new Vector<>();
+        allVertices = new ArrayList<>();
+        allEdges = new ArrayList<>();
         parseGraph(graph);
     }
 
-    public Vector adjacencyList() {
+    public ArrayList adjacencyList() {
         return  null;
     }
 
-    public Vector adjacencyMatrix() {
+    public ArrayList adjacencyMatrix() {
         return  null;
     }
 
-    public Vector fromListToMatrix(Vector list) {
+    public ArrayList fromListToMatrix(ArrayList list) {
         return null;
     }
 
-    public Vector fromMatrixToList(Vector matrix) {
+    public ArrayList fromMatrixToList(ArrayList matrix) {
         return null;
     }
 
     public void testConversion(){
     }
 
-    public Vector<Vertex> getAllVertices(){
+    public ArrayList<Vertex> getAllVertices(){
         return allVertices;
     }
 
-    public Vector<Edge> getAllEdges(){
+    public ArrayList<Edge> getAllEdges(){
         return allEdges;
     }
 

@@ -1,19 +1,19 @@
 import java.util.Collections;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Dijkstra {
     private Vertex fromV;
     private Vertex toV;
     private Graph graph;
-    private Vector<Path> openList;
-    private Vector<Path> closedList;
+    private ArrayList<Path> openList;
+    private ArrayList<Path> closedList;
 
     public Dijkstra(Vertex fromV, Vertex toV, Graph graph){
         this.fromV = fromV;
         this.toV = toV;
         this.graph = graph;
-        openList = new Vector<>();
-        closedList = new Vector<>();
+        openList = new ArrayList<>();
+        closedList = new ArrayList<>();
         openList.add(new Path(this.fromV));
     }
 
@@ -67,7 +67,7 @@ public class Dijkstra {
         return null;
     }
 
-    private boolean isInPath(Vector<Path> paths, Vertex v){
+    private boolean isInPath(ArrayList<Path> paths, Vertex v){
         for (Path p : paths){
             if (p.getCurrentVertex() == v){
                 return true;
