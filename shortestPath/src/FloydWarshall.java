@@ -12,16 +12,16 @@ public class FloydWarshall {
     }
 
     public Double[][] execFloydWarshall(){
-        Double[][] dist = new Double[aMatrix.size()][aMatrix.size()];
-        //initialise dist matrix
+        Double[][] result = new Double[aMatrix.size()][aMatrix.size()];
+        //initialise result matrix
         for (int i = 0; i < aMatrix.size(); i++){
             for (int j = 0; j < aMatrix.size(); j++){
                 if (i == j){
-                    dist[i][j] = 0.0;
+                    result[i][j] = 0.0;
                 } else if (aMatrix.get(i) == null || aMatrix.get(i).get(j) == null){
-                    dist[i][j] = Double.MAX_VALUE;
+                    result[i][j] = Double.MAX_VALUE;
                 } else {
-                    dist[i][j] = aMatrix.get(i).get(j).getWeight();
+                    result[i][j] = aMatrix.get(i).get(j).getWeight();
                 }
             }
         }
@@ -29,13 +29,13 @@ public class FloydWarshall {
         for (int k = 0; k < aMatrix.size(); k++){
             for (int i = 0; i < aMatrix.size(); i++){
                 for (int j = 0; j < aMatrix.size(); j++){
-                    if (dist[i][k] + dist[k][j] < dist[i][j]){
-                        dist[i][j] = dist[i][k] + dist[k][j];
+                    if (result[i][k] + result[k][j] < result[i][j]){
+                        result[i][j] = result[i][k] + result[k][j];
                     }
                 }
             }
         }
-        return dist;
+        return result;
     }
 
     public void shortestPath(){

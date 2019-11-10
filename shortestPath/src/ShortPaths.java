@@ -15,7 +15,7 @@ public class ShortPaths {
         String preParsedGraph = shortPaths.readFile(args[0]);
         Graph g = new Graph(preParsedGraph);
         g.printAjacencyMatrix();
-        
+
 //        Dijkstra dijkstra = new Dijkstra();
 //        dijkstra.shortestPath();
 
