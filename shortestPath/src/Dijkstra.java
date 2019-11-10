@@ -30,7 +30,6 @@ public class Dijkstra {
             // the destination, return directly
             Path firstPath = openList.get(0);
             openList.remove(0);
-//            if (firstPath.getCurrentVertex().getCurrentVertex() == toV.getCurrentVertex()) {
             if (firstPath.getCurrentVertex() == toV) {
                 return firstPath;
             }
@@ -47,7 +46,6 @@ public class Dijkstra {
                     int removeV = 0;
                     for (int i = 0; i < openList.size(); i++){
                         Path temp = openList.get(i);
-//                        if (temp.getCurrentVertex().getCurrentVertex() == e.toV().getCurrentVertex()){
                         if (temp.getCurrentVertex() == e.toV()){
                             removeV = i;
                             break;
@@ -71,7 +69,6 @@ public class Dijkstra {
 
     private boolean isInPath(Vector<Path> paths, Vertex v){
         for (Path p : paths){
-//            if (p.getCurrentVertex().getCurrentVertex() == v.getCurrentVertex()){
             if (p.getCurrentVertex() == v){
                 return true;
             }
