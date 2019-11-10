@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class Edge {
     private Vertex from;
     private Vertex to;
@@ -19,6 +21,14 @@ public class Edge {
 
     public double getWeight() {
         return weight;
+    }
+
+    static class EdgeToComparator implements Comparator<Edge> {
+
+        @Override
+        public int compare(Edge e1, Edge e2) {
+            return e1.toV().getCurrentVertex() - e2.toV().getCurrentVertex();
+        }
     }
 
 }

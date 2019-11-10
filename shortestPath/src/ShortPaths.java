@@ -14,7 +14,9 @@ public class ShortPaths {
         ShortPaths shortPaths = new ShortPaths();
         String preParsedGraph = shortPaths.readFile(args[0]);
         Graph g = new Graph(preParsedGraph);
-        shortPaths.runDijkstra(g);
+        g.printAjacencyList();
+        g.printAjacencyMatrix();
+//        shortPaths.runDijkstra(g);
     }
 
     public void runDijkstra(Graph graph){
@@ -30,8 +32,6 @@ public class ShortPaths {
         }
 
     }
-
-
 
     // this function will read test file, convert graph from tuples to
     // INT INT DOUBLE format and return the result
