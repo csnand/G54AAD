@@ -5,7 +5,7 @@ public class ShortPaths {
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("Usage: java ShortPath pathToTestFile");
+            System.out.println("Usage: java ShortPaths pathToTestFile");
             return;
         }
 
