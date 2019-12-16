@@ -11,12 +11,25 @@ public class HeapRun {
         }
 
         HeapRun heapRun = new HeapRun();
-        heapRun.parse(args[0]);
-
+        String[] tokens = heapRun.parse(args[0]);
+        heapRun.runHeap(tokens);
 
     }
 
-    public void parse(String path) {
+    public void runHeap (String[] tokens) {
+        for (int i = 0; i < tokens.length; i++) {
+            switch (tokens[i]) {
+                case "insert":
+                    System.out.println("insert " + tokens[i+1]);
+                    i++;
+                    break;
+                case "minimum": System.out.println("minimum "); break;
+                case "extract": System.out.println("extract "); break;
+            }
+        }
+    }
+
+    public String[] parse(String path) {
         String ops = "";
         try  {
             BufferedReader bf = new BufferedReader(new FileReader(path));
@@ -29,6 +42,6 @@ public class HeapRun {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(ops);
+        return ops.trim().split(" ");
     }
 }
