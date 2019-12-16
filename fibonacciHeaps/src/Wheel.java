@@ -1,6 +1,7 @@
 public class Wheel {
     protected Node start, end;
     protected Node parent, child;
+    private Node min;
     private int degree;
 
     public Wheel () {
@@ -55,7 +56,7 @@ public class Wheel {
         return start == null;
     }
 
-    public void insertAtStart(Integer object) {
+    public void insertAtStart(Object object) {
         Node node = new Node(object);
         if (isEmpty()) {
             node.setRight(node);
@@ -121,5 +122,14 @@ public class Wheel {
     public int getDegree() {
         return degree;
     }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public Node getChild() {
+        return child;
+    }
+
 //----------- doubly circular linked list operations end -----------
 }

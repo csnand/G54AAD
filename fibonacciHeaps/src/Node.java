@@ -32,12 +32,10 @@ class Node {
         this.left = left;
     }
 
-    public void setData(Object o) {
-        object = o;
-    }
-
     public Object getData() {
         return object;
     }
+
+
 
 }

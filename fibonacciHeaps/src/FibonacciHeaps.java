@@ -1,51 +1,41 @@
+import javax.print.DocFlavor;
+
 public class FibonacciHeaps {
-    int num;		//number of nodes in the heap
-    Node min;		//the minimum node
+    private int degree;
+    private Wheel wheel;
 
-    class Node{
-        int key;		//the value stored in the node
-        int degree;		//the number of children
-        Node parent;
-        Node child;
-        Node left;
-        Node right; 		//pointers left and right are used to form a circular double linked list.
-
-        public Node (int value) {		//constructor for Fibonacci heap node
-            this.key = value;
-            this.left = this;
-            this.right = this;
-        }
+    public FibonacciHeaps (){
+        this(null, 0);
     }
 
-
-    public void emptyhH() {		//make heap empty
-        min=null;
-        num=0;
+    public FibonacciHeaps (Wheel wheel, int degree) {
+        this.wheel = wheel;
+        this.degree = degree;
     }
 
-    public boolean isEmptyH() {		//check if the heap is empty
-        return num == 0;
+    public FibonacciHeaps emptyhH() {
+        return new FibonacciHeaps();
     }
 
-    public void insertH(int value) {		//add one element to an existing heap
-        Node temp = new Node (value);
-        if(num == 0)
-            min =temp;
-        else {
-            addNode(temp,min);
-            if(temp.key<min.key)
-                min = temp;
-        }
-        num++;
+    public boolean isEmptyH() {
+        return (wheel == null || wheel.isEmptyW()) && degree == 0;
     }
 
-    public void minimumH() {		//reading the minimum element from a heap
-        System.out.println("minimum: "+min.key);
+    public void insertH(int value) {
+        Node node = new Node (value);
+        if (wheel == null) wheel = new Wheel();
+        wheel.insertW(value);
+        if ((wheel.headW() != null) && (Integer)node.getData() < (Integer)wheel.headW())
+            wheel.moveRight();
     }
 
-    public int extractH() {		//delete and return the minimum element of a heap
-        if(min ==null) return 0;
-        int minimum = min.key;
+    public void minimumH() {
+        System.out.println("minimum: "+ wheel.headW() == null ? "null" : wheel.headW());
+    }
+
+    public int extractH() {
+        if(min == null) return 0;
+        int minimum = (Integer)min.getData();
 
         while (min.child != null) {
             removeNode(min.child);
@@ -54,15 +44,15 @@ public class FibonacciHeaps {
                 min.child = null;
             else
                 min.child = min.child.right;
-            addNode(child,min);	//concatenate the sub-heap of the extracted element with the remaining root wheel
+            addNode(child,min);
             child.parent =null;
         }
-        removeNode(min);		//remove the root containing the minimum element
+        removeNode(min);
 
         if(min.right == min) min =null;
         else{
             min=min.right;
-            consolidate();		//to reorganise the structure of the heap
+            consolidate();
         }
 
         num--;
@@ -73,15 +63,15 @@ public class FibonacciHeaps {
 
     public void consolidate() {
         int maxDegree = (int)Math.floor(Math.log(num)/Math.log(2));
-        Node[] cons =new Node[maxDegree+1];		//create an array of sub-heap with different degrees
+        Node[] cons =new Node[maxDegree+1];
         for(int i = 0; i<=maxDegree; i++)
             cons[i]=null;
 
         while (min !=null) {
             Node x = extractMinTree();
             int d =x.degree;
-            while(cons[d]!=null) {		//If degrees are same then merge the trees by using link(), until there are no two trees of the same degree.
-                if(cons[d].key<x.key) {
+            while(cons[d]!=null) {
+                if(((Integer)cons[d].getData()< (Integer)x.getData())){
                     Node temp=x;
                     x=cons[d];
                     cons[d]=temp;
@@ -93,7 +83,6 @@ public class FibonacciHeaps {
             }
             cons[d]=x;
         }
-        //min = null;
 
         for(int i=0 ; i<=maxDegree; i++) {
             if (cons[i] !=null) {
@@ -101,7 +90,7 @@ public class FibonacciHeaps {
                     min = cons[i];
                 else {
                     addNode(cons[i],min);
-                    if(cons[i].key < min.key)
+                    if((Integer)cons[i].getData() < (Integer)min.getData())
                         min = cons[i];
                 }
 
@@ -110,7 +99,7 @@ public class FibonacciHeaps {
 
     }
 
-    public void link(Node node1,Node node2) {		//insert the larger one "node1" as a child of the smaller "node2"
+    public void link(Node node1,Node node2) {
         removeNode(node1);
         if(node2.child == null)
             node2.child =node1;
