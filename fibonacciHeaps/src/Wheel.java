@@ -1,16 +1,16 @@
 public class Wheel {
-    public Node node;
+    private DCLinkedList dcLinkedList ;
 
     public Wheel () {
-
+        dcLinkedList = new DCLinkedList();
     }
 
     public Wheel emptyW () {
-        return null;
+        return new Wheel();
     }
     
     public boolean isEmptyW() {
-        return false;
+        return dcLinkedList.isEmpty();
     }
 
     public void rightW() {
@@ -22,7 +22,8 @@ public class Wheel {
     }
 
     public Object headW() {
-        return  null;
+        if (isEmptyW()) return null;
+        return dcLinkedList.start.getData();
     }
 
     public void insertW (Object o) {
