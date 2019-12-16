@@ -1,9 +1,16 @@
 public class Wheel {
-    private DCLinkedList dcLinkedList ;
+    private DCLinkedList dcLinkedList;
+    private int degree;
 
     public Wheel () {
-        dcLinkedList = new DCLinkedList();
+        this(0);
     }
+
+    public Wheel (int degree) {
+        dcLinkedList = new DCLinkedList();
+        this.degree = degree;
+    }
+
 
     public Wheel emptyW () {
         return new Wheel();
@@ -14,11 +21,13 @@ public class Wheel {
     }
 
     public void rightW() {
-
+        if (isEmptyW()) return;
+        dcLinkedList.moveRight();
     }
 
     public void leftW() {
-
+        if (isEmptyW()) return;
+        dcLinkedList.moveLeft();
     }
 
     public Object headW() {
@@ -27,11 +36,20 @@ public class Wheel {
     }
 
     public void insertW (Object o) {
-
+        dcLinkedList.insertAtEnd(o);
+        dcLinkedList.moveLeft();
+        degree = dcLinkedList.getSize();
     }
 
     public Object extractW () {
-        return null;
+        Object headW = headW();
+        dcLinkedList.deleteStart();
+        degree = dcLinkedList.getSize();
+        return headW;
+    }
+
+    public int getDegree() {
+        return degree;
     }
 
 }

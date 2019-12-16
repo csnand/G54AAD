@@ -1,27 +1,56 @@
 public class FibHeaps {
-    public Wheel wheel;
+    private Wheel wheel;
+    private int degree;
+
+    public FibHeaps () {
+        this(null, 0);
+    }
+
+    public FibHeaps (Wheel w, int degree) {
+        wheel = w;
+        this.degree = degree;
+    }
 
     public FibHeaps emptyH () {
-        return null;
+        return new FibHeaps();
     }
 
     public Boolean isEmptyH () {
-        return false;
+        return wheel == null || wheel.isEmptyW();
     }
 
-    public void insertH (Object o) {
+    public void insertH (Object object) {
+        if (wheel == null || minimumH() == null) {
+            wheel = new Wheel();
+            wheel.insertW(object);
+            degree = wheel.getDegree();
+            return;
+        }
 
+        Wheel w = new Wheel();
+        w.insertW(object);
+        wheel.insertW(w);
+        if ((Double) object >= (Double) minimumH()) {
+            wheel.rightW();
+        }
+        degree = wheel.getDegree();
     }
 
     public Object minimumH () {
-        return null;
+        if (isEmptyH()) return null;
+        if (wheel.headW() instanceof Wheel){
+            return ((Wheel) wheel.headW()).headW();
+        }
+        return wheel.headW();
     }
 
-    public Object extractH () {
+    public Integer extractH () {
         return  null;
     }
 
     private void consolidate(){
 
     }
+
+
 }

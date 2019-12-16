@@ -1,6 +1,6 @@
 class Node {
     private Object object;
-    private Node next, prev;
+    private Node left, right;
 
     public Node() {
         this(null, null, null);
@@ -10,26 +10,26 @@ class Node {
         this(object, null, null);
     }
 
-    public Node(Object o, Node n, Node p) {
+    public Node(Object o, Node l, Node r) {
         object = o;
-        next = n;
-        prev = p;
+        right = r;
+        left = l;
     }
 
-    public Node getNext() {
-        return next;
+    public Node getRight() {
+        return right;
     }
 
-    public void setNext(Node next) {
-        this.next = next;
+    public void setRight(Node right) {
+        this.right = right;
     }
 
-    public Node getPrev() {
-        return prev;
+    public Node getLeft() {
+        return left;
     }
 
-    public void setPrev(Node prev) {
-        this.prev = prev;
+    public void setLeft(Node left) {
+        this.left = left;
     }
 
     public void setData(Object o) {
