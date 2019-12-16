@@ -1,55 +1,125 @@
 public class Wheel {
-    private DCLinkedList dcLinkedList;
+    protected Node start, end;
+    protected Node parent, child;
     private int degree;
 
     public Wheel () {
-        this(0);
+        start = null;
+        end = null;
+        degree = 0;
     }
 
-    public Wheel (int degree) {
-        dcLinkedList = new DCLinkedList();
-        this.degree = degree;
-    }
-
-
+//----------- wheel operations start -----------
     public Wheel emptyW () {
         return new Wheel();
     }
-    
-    public boolean isEmptyW() {
-        return dcLinkedList.isEmpty();
+
+    public boolean isEmptyW () {
+        return isEmpty();
     }
 
     public void rightW() {
         if (isEmptyW()) return;
-        dcLinkedList.moveRight();
+        moveRight();
     }
 
     public void leftW() {
         if (isEmptyW()) return;
-        dcLinkedList.moveLeft();
+        moveLeft();
     }
 
     public Object headW() {
         if (isEmptyW()) return null;
-        return dcLinkedList.start.getData();
+        return start.getData();
     }
 
     public void insertW (Object o) {
-        dcLinkedList.insertAtEnd(o);
-        dcLinkedList.moveLeft();
-        degree = dcLinkedList.getSize();
+        insertAtEnd(o);
+        moveLeft();
     }
 
     public Object extractW () {
         Object headW = headW();
-        dcLinkedList.deleteStart();
-        degree = dcLinkedList.getSize();
+        deleteStart();
         return headW;
+    }
+
+
+
+//----------- wheel operations end -----------
+
+
+//----------- doubly circular linked list operations start -----------
+
+    public boolean isEmpty() {
+        return start == null;
+    }
+
+    public void insertAtStart(Integer object) {
+        Node node = new Node(object);
+        if (isEmpty()) {
+            node.setRight(node);
+            node.setLeft(node);
+            start = node;
+            end = start;
+            degree++;
+            return;
+        }
+
+        node.setLeft(end);
+        end.setRight(node);
+        start.setLeft(node);
+        node.setRight(start);
+        start = node;
+        degree++;
+    }
+
+    public void insertAtEnd(Object object) {
+        Node node = new Node(object);
+        if (isEmpty()) {
+            node.setRight(node);
+            node.setLeft(node);
+            start = node;
+            end = start;
+            degree++;
+            return;
+        }
+
+        node.setLeft(end);
+        end.setRight(node);
+        start.setLeft(node);
+        node.setRight(start);
+        end = node;
+        degree++;
+    }
+
+    public void deleteStart () {
+        if (degree == 1) {
+            start = null;
+            end = null;
+            degree = 0;
+            return;
+        }
+        start = start.getRight();
+        start.setLeft(end);
+        end.setRight(start);
+        degree--;
+    }
+
+    public void moveRight() {
+        if (isEmpty()) return;
+        start = start.getRight();
+        end = end.getLeft();
+    }
+
+    public void moveLeft () {
+        if (isEmpty()) return;
+        start = start.getLeft();
+        end = end.getRight();
     }
 
     public int getDegree() {
         return degree;
     }
-
+//----------- doubly circular linked list operations end -----------
 }
