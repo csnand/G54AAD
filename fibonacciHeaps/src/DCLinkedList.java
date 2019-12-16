@@ -80,28 +80,4 @@ public class DCLinkedList {
     public int getSize () {
         return size;
     }
-
-    public void display() {
-        System.out.print("\nCircular Doubly Linked List = ");
-        Node ptr = start;
-        if (isEmpty()) {
-            System.out.print("empty\n");
-            return;
-        }
-        if (start.getRight() == start) {
-            System.out.print(start.getData()+ " <-> "+ptr.getData().toString()+ "\n");
-            return;
-        }
-        System.out.print(start.getData()+ " <-> ");
-        ptr = start.getRight();
-        while (ptr.getRight() != start) {
-            System.out.print(ptr.getData()+ " <-> ");
-            ptr = ptr.getRight();
-        }
-        System.out.print(ptr.getData()+ " <-> ");
-        ptr = ptr.getRight();
-        System.out.print(ptr.getData()+ "\n");
-        System.out.print("size: " + size);
-    }
-    
 }
