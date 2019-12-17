@@ -1,0 +1,37 @@
+########################################################################
+########################################################################
+#              minimum requirement -> jdk versoin >= 8                 #
+########################################################################
+########################################################################
+
+
+# To Compile and Run Automatically
+#-----------------------------------------------------------------------
+# this file can be directly run as bash file
+# to do this, just executing
+####--------------------------
+# bash instructions.txt
+####--------------------------
+# in the command line
+
+
+# To Compile and Run Manually
+#-----------------------------------------------------------------------
+# The src/ folder contains all source code
+# the testGraph.txt file is downloaded test file from course web page
+# In order to compile the program,
+# first, change the current working firection to src/
+# by executing the following command
+
+cd src
+
+# the ShortPaths.java file contains the main function of the program
+# to compile the program, just executing the following command
+
+javac ShortPaths.java
+
+# to run the program, just executing it
+# with path to a test file as an argument.
+# e.g. java ShortPaths filePath
+
+java ShortPaths ../testGraph.txt
