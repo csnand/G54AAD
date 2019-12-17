@@ -1,13 +1,13 @@
-public class FibonacciHeaps {
+public class FibHeaps {
 	private int count;
 	private Node<Integer> head;
 
-	public FibonacciHeaps(){
+	public FibHeaps(){
 	    head = null;
 	    count = 0;
     }
-	public FibonacciHeaps emptyH() {
-		return new FibonacciHeaps();
+	public FibHeaps emptyH() {
+		return new FibHeaps();
 	}
 
 	public boolean isEmptyH() {	return head == null; }

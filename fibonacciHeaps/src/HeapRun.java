@@ -17,16 +17,15 @@ public class HeapRun {
     }
 
     public void runHeap (String[] tokens) {
-        FibonacciHeaps fibonacciHeaps = new FibonacciHeaps();
-//        FibHeaps fibonacciHeaps = new FibHeaps();
+        FibHeaps fibHeaps = new FibHeaps();
         for (int i = 0; i < tokens.length; i++) {
             switch (tokens[i]) {
                 case "insert":
-                    fibonacciHeaps.insertH(Integer.parseInt(tokens[i+1]));
+                    fibHeaps.insertH(Integer.parseInt(tokens[i+1]));
                     i++;
                     break;
-                case "minimum": System.out.println("minimum: " + fibonacciHeaps.minimumH()); break;
-                case "extract": fibonacciHeaps.extractH(); break;
+                case "minimum": System.out.println("minimum: " + fibHeaps.minimumH()); break;
+                case "extract": fibHeaps.extractH(); break;
             }
         }
     }
