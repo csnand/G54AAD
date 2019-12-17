@@ -18,6 +18,7 @@ public class HeapRun {
 
     public void runHeap (String[] tokens) {
         FibonacciHeaps fibonacciHeaps = new FibonacciHeaps();
+//        FibHeaps fibonacciHeaps = new FibHeaps();
         for (int i = 0; i < tokens.length; i++) {
             switch (tokens[i]) {
                 case "insert":

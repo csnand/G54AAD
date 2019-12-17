@@ -1,44 +1,11 @@
-public class Wheel {
-
-    class Node {
-        private Object object;
-        private Node left, right;
-        public Node() {
-            this(null, null, null);
-        }
-        public Node(Object object) {
-            this(object, null, null);
-        }
-        public Node(Object o, Node l, Node r) {
-            object = o;
-            right = r;
-            left = l;
-        }
-        public Node getRight() {
-            return right;
-        }
-        public void setRight(Node right) {
-            this.right = right;
-        }
-        public Node getLeft() {
-            return left;
-        }
-        public void setLeft(Node left) {
-            this.left = left;
-        }
-        public Object getData() {
-            return object;
-        }
-    }
-
-
-    private Node start, end;
-    private int degree;
+public class Wheel<T> {
+    private Node<T> start, end;
+    private int count;
 
     public Wheel () {
         start = null;
         end = null;
-        degree = 0;
+        count = 0;
     }
 
 //----------- wheel operations start -----------
@@ -60,18 +27,18 @@ public class Wheel {
         moveLeft();
     }
 
-    public Object headW() {
+    public T headW() {
         if (isEmptyW()) return null;
         return start.getData();
     }
 
-    public void insertW (Object o) {
+    public void insertW (T o) {
         insertAtEnd(o);
         moveLeft();
     }
 
-    public Object extractW () {
-        Object headW = headW();
+    public T extractW () {
+        T headW = headW();
         deleteStart();
         return headW;
     }
@@ -80,16 +47,8 @@ public class Wheel {
         return start;
     }
 
-    public void setStart(Node start) {
-        this.start = start;
-    }
-
     public Node getEnd() {
         return end;
-    }
-
-    public void setEnd(Node end) {
-        this.end = end;
     }
 
 
@@ -102,52 +61,52 @@ public class Wheel {
         return start == null;
     }
 
-    public void insertAtEnd(Object object) {
-        Node node = new Node(object);
+    public void insertAtEnd(T object) {
+        Node<T> node = new Node(object);
         if (isEmpty()) {
-            node.setRight(node);
-            node.setLeft(node);
+            node.right = node;
+            node.left = node;
             start = node;
             end = start;
-            degree++;
+            count++;
             return;
         }
 
-        node.setLeft(end);
-        end.setRight(node);
-        start.setLeft(node);
-        node.setRight(start);
+        node.left =  end;
+        end.right = node;
+        start.left = node;
+        node.right = start;
         end = node;
-        degree++;
+        count++;
     }
 
     public void deleteStart () {
-        if (degree == 1) {
+        if (count == 1) {
             start = null;
             end = null;
-            degree = 0;
+            count = 0;
             return;
         }
-        start = start.getRight();
-        start.setLeft(end);
-        end.setRight(start);
-        degree--;
+        start = start.right;
+        start.left = end;
+        end.right = start;
+        count--;
     }
 
     public void moveRight() {
         if (isEmpty()) return;
-        start = start.getRight();
-        end = end.getLeft();
+        start = start.right;
+        end = end.left;
     }
 
     public void moveLeft () {
         if (isEmpty()) return;
-        start = start.getLeft();
-        end = end.getRight();
+        start = start.left;
+        end = end.right;
     }
 
-    public int getDegree() {
-        return degree;
+    public int getCount() {
+        return count;
     }
 
 //----------- doubly circular linked list operations end -----------

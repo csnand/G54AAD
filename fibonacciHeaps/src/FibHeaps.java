@@ -1,56 +1,83 @@
 public class FibHeaps {
-    private Wheel wheel;
-    private int degree;
+    private Wheel<Integer> wheel;
 
-    public FibHeaps () {
-        this(null, 0);
+    public FibHeaps(){
+        wheel = null;
     }
-
-    public FibHeaps (Wheel w, int degree) {
-        wheel = w;
-        this.degree = degree;
-    }
-
-    public FibHeaps emptyH () {
+    public FibHeaps emptyH() {
         return new FibHeaps();
     }
 
-    public Boolean isEmptyH () {
-        return wheel == null || wheel.isEmptyW();
-    }
+    public boolean isEmptyH() {	return wheel == null || wheel.isEmptyW(); }
 
-    public void insertH (Object object) {
-        if (wheel == null || minimumH() == null) {
-            wheel = new Wheel();
-            wheel.insertW(object);
-            degree = wheel.getDegree();
+    public void insertH(int value) {
+        if(isEmptyH()) {
+            if (wheel == null) wheel = new Wheel<>();
+            wheel.insertW(value);
             return;
         }
+        wheel.insertW(value);
+        if( wheel.headW() < value)
+            wheel.moveRight();
+    }
 
-        Wheel w = new Wheel();
-        w.insertW(object);
-        wheel.insertW(w);
-        if ((Double) object >= (Double) minimumH()) {
-            wheel.rightW();
+    public int minimumH() { return isEmptyH() ? 0 : wheel.headW(); }
+
+    public int extractH() {
+        if(isEmptyH()) return 0;
+
+        int min = wheel.headW();
+        while (wheel.getStart().child != null) {
+            Node<Integer> child = wheel.getStart().child;
+            wheel.getStart().child.delete();
+            if(wheel.getStart().child == wheel.getStart().child.right) wheel.getStart().child = null;
+            else wheel.getStart().child = wheel.getStart().child.right;
+            wheel.getStart().insert(child);
+            child.parent = null;
         }
-        degree = wheel.getDegree();
-    }
 
-    public Object minimumH () {
-        if (isEmptyH()) return null;
-        if (wheel.headW() instanceof Wheel){
-            return ((Wheel) wheel.headW()).headW();
+        wheel.deleteStart();
+
+        if (wheel.getStart() == wheel.getEnd()) {
+            wheel = null;
+            return min;
         }
-        return wheel.headW();
+
+        consolidate();
+        return min;
     }
 
-    public Integer extractH () {
-        return  null;
+    public void consolidate() {
+        Node<Integer> NArray[] = new Node[ (int)(Math.log(wheel.getCount()) / Math.log(2)) + 1];
+        while (wheel != null) {
+
+            Node<Integer> x = wheel.getStart();
+            wheel.deleteStart();
+
+            int d = x.degree;
+            for (; NArray[d] != null; d++) {
+                if(NArray[d].getData() < x.getData()) {
+                    Node<Integer> temp = x;
+                    x = NArray[d];
+                    NArray[d] = temp;
+                }
+                x.link(NArray[d]);
+                NArray[d] = null;
+            }
+            NArray[d] = x;
+        }
+
+        for(Node<Integer> n : NArray) {
+            if (n == null) continue;
+            if(isEmptyH()) {
+                wheel = new Wheel<>();
+                wheel.insertW(n.getData());
+                continue;
+            }
+            wheel.insertW(n.getData());
+            if((int)n.getData() < wheel.headW())
+                wheel.moveRight();
+        }
     }
-
-    private void consolidate(){
-
-    }
-
 
 }
