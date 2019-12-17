@@ -13,7 +13,7 @@ public class FibHeaps {
 	public boolean isEmptyH() {	return head == null; }
 
 	public void insertH(int value) {
-		Node<Integer> node = new Node (value);
+		Node<Integer> node = new Node<>(value);
 		if(isEmptyH()) {
             head = node;
             count++;
@@ -32,7 +32,7 @@ public class FibHeaps {
 
 		int min = head.getData();
 		while (head.child != null) {
-			Node child = head.child;
+			Node<Integer> child = head.child;
             head.child.delete();
 			if(head.child == head.child.right) head.child = null;
 			else head.child = head.child.right;
@@ -54,13 +54,14 @@ public class FibHeaps {
 	}
 
 	public void consolidate() {
-		Node<Integer> NArray[] = new Node[ (int)(Math.log(count) / Math.log(2)) + 1];
+		@SuppressWarnings("unchecked")
+		Node<Integer>[] NArray = new Node[ (int)(Math.log(count) / Math.log(2)) + 1];
 		while (head != null) {
 			Node<Integer> x = extract();
 			int d = x.degree;
 			for (; NArray[d] != null; d++) {
 				if(NArray[d].getData() < x.getData()) {
-					Node temp = x;
+					Node<Integer> temp = x;
 					x = NArray[d];
 					NArray[d] = temp;
 				}
