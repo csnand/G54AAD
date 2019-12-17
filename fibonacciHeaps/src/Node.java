@@ -1,41 +1,38 @@
-class Node {
-    private Object object;
-    private Node left, right;
+class Node{
+    int val, degree;
+    Node parent, child;
+    Node left, right;
 
-    public Node() {
-        this(null, null, null);
+    public Node (int val) {
+        this.val = val;
+        left = right = this;
     }
 
-    public Node(Object object) {
-        this(object, null, null);
+    public void delete() {
+        left.right = right;
+        right.left = left;
     }
 
-    public Node(Object o, Node l, Node r) {
-        object = o;
-        right = r;
-        left = l;
+    public void link(Node node) {
+        node.delete();
+        if(child == null) {
+            child = node;
+            node.parent = this;
+            degree++;
+            return;
+        }
+
+        child.insert(node);
+        node.parent = this;
+        degree++;
     }
 
-    public Node getRight() {
-        return right;
+    public void insert(Node node) {
+        node.left = left;
+        node.right = this;
+        left.right = node;
+        left = node;
     }
-
-    public void setRight(Node right) {
-        this.right = right;
-    }
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-    }
-
-    public Object getData() {
-        return object;
-    }
-
 
 
 }

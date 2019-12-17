@@ -1,7 +1,38 @@
 public class Wheel {
-    protected Node start, end;
-    protected Node parent, child;
-    private Node min;
+
+    class Node {
+        private Object object;
+        private Node left, right;
+        public Node() {
+            this(null, null, null);
+        }
+        public Node(Object object) {
+            this(object, null, null);
+        }
+        public Node(Object o, Node l, Node r) {
+            object = o;
+            right = r;
+            left = l;
+        }
+        public Node getRight() {
+            return right;
+        }
+        public void setRight(Node right) {
+            this.right = right;
+        }
+        public Node getLeft() {
+            return left;
+        }
+        public void setLeft(Node left) {
+            this.left = left;
+        }
+        public Object getData() {
+            return object;
+        }
+    }
+
+
+    private Node start, end;
     private int degree;
 
     public Wheel () {
@@ -45,6 +76,21 @@ public class Wheel {
         return headW;
     }
 
+    public Node getStart() {
+        return start;
+    }
+
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    public Node getEnd() {
+        return end;
+    }
+
+    public void setEnd(Node end) {
+        this.end = end;
+    }
 
 
 //----------- wheel operations end -----------
@@ -54,25 +100,6 @@ public class Wheel {
 
     public boolean isEmpty() {
         return start == null;
-    }
-
-    public void insertAtStart(Object object) {
-        Node node = new Node(object);
-        if (isEmpty()) {
-            node.setRight(node);
-            node.setLeft(node);
-            start = node;
-            end = start;
-            degree++;
-            return;
-        }
-
-        node.setLeft(end);
-        end.setRight(node);
-        start.setLeft(node);
-        node.setRight(start);
-        start = node;
-        degree++;
     }
 
     public void insertAtEnd(Object object) {
@@ -121,14 +148,6 @@ public class Wheel {
 
     public int getDegree() {
         return degree;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    public Node getChild() {
-        return child;
     }
 
 //----------- doubly circular linked list operations end -----------

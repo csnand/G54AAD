@@ -1,133 +1,98 @@
-import javax.print.DocFlavor;
-
 public class FibonacciHeaps {
-    private int degree;
-    private Wheel wheel;
+	private int count;
+	private Node head;
 
-    public FibonacciHeaps (){
-        this(null, 0);
+	public FibonacciHeaps(){
+	    head = null;
+	    count = 0;
     }
+	public FibonacciHeaps emptyH() {
+		return new FibonacciHeaps();
+	}
 
-    public FibonacciHeaps (Wheel wheel, int degree) {
-        this.wheel = wheel;
-        this.degree = degree;
-    }
+	public boolean isEmptyH() {	return head == null; }
 
-    public FibonacciHeaps emptyhH() {
-        return new FibonacciHeaps();
-    }
-
-    public boolean isEmptyH() {
-        return (wheel == null || wheel.isEmptyW()) && degree == 0;
-    }
-
-    public void insertH(int value) {
-        Node node = new Node (value);
-        if (wheel == null) wheel = new Wheel();
-        wheel.insertW(value);
-        if ((wheel.headW() != null) && (Integer)node.getData() < (Integer)wheel.headW())
-            wheel.moveRight();
-    }
-
-    public void minimumH() {
-        System.out.println("minimum: "+ wheel.headW() == null ? "null" : wheel.headW());
-    }
-
-    public int extractH() {
-        if(min == null) return 0;
-        int minimum = (Integer)min.getData();
-
-        while (min.child != null) {
-            removeNode(min.child);
-            Node child =min.child;
-            if(min.child.right==min.child)
-                min.child = null;
-            else
-                min.child = min.child.right;
-            addNode(child,min);
-            child.parent =null;
+	public void insertH(int value) {
+		Node node = new Node (value);
+		if(isEmptyH()) {
+            head = node;
+            count++;
+            return;
         }
-        removeNode(min);
+		head.insert(node);
+		if(node.val < head.val)
+			head = node;
+		count++;
+	}
 
-        if(min.right == min) min =null;
-        else{
-            min=min.right;
-            consolidate();
-        }
+	public int minimumH() { return head == null ? 0 : head.val; }
 
-        num--;
-        return minimum;
-    }
+	public int extractH() {
+		if(isEmptyH()) return 0;
 
+		int min = head.val;
+		while (head.child != null) {
+			Node child = head.child;
+            head.child.delete();
+			if(head.child == head.child.right) head.child = null;
+			else head.child = head.child.right;
+			head.insert(child);
+			child.parent = null;
+		}
 
+		head.delete();
+		count--;
 
-    public void consolidate() {
-        int maxDegree = (int)Math.floor(Math.log(num)/Math.log(2));
-        Node[] cons =new Node[maxDegree+1];
-        for(int i = 0; i<=maxDegree; i++)
-            cons[i]=null;
+		if (head == head.right) {
+            head = null;
+            return min;
+		}
 
-        while (min !=null) {
-            Node x = extractMinTree();
-            int d =x.degree;
-            while(cons[d]!=null) {
-                if(((Integer)cons[d].getData()< (Integer)x.getData())){
-                    Node temp=x;
-                    x=cons[d];
-                    cons[d]=temp;
-                }
+		head = head.right;
+		consolidate();
+		return min;
+	}
 
-                link(cons[d],x);
-                cons[d]=null;
-                d++;
-            }
-            cons[d]=x;
-        }
+	public void consolidate() {
+		Node[] NArray = new Node[ (int)(Math.log(count) / Math.log(2)) + 1];
+		while (head != null) {
+			Node x = extract();
+			int d = x.degree;
+			for (; NArray[d] != null; d++) {
+				if(NArray[d].val < x.val) {
+					Node temp = x;
+					x = NArray[d];
+					NArray[d] = temp;
+				}
+				x.link(NArray[d]);
+				NArray[d] = null;
+			}
+			NArray[d] = x;
+		}
 
-        for(int i=0 ; i<=maxDegree; i++) {
-            if (cons[i] !=null) {
-                if(min == null)
-                    min = cons[i];
-                else {
-                    addNode(cons[i],min);
-                    if((Integer)cons[i].getData() < (Integer)min.getData())
-                        min = cons[i];
-                }
+		for(Node n : NArray) {
+		 	if (n == null) continue;
+		 	if(head == null) {
+				head = n;
+				continue;
+			}
+		 	head.insert(n);
+		 	if(n.val < head.val)
+		 		head = n;
+		}
+	}
 
-            }
-        }
+	public Node extract() {
+		Node temp = head;
+		if (temp == temp.right) {
+			head = null;
+			temp.left = temp.right = temp;
+			return temp;
+		}
 
-    }
-
-    public void link(Node node1,Node node2) {
-        removeNode(node1);
-        if(node2.child == null)
-            node2.child =node1;
-        else addNode(node1,node2.child);
-        node1.parent = node2;
-        node2.degree++;
-    }
-    public void addNode(Node node,Node min) {
-        node.left=min.left;
-        node.right=min;
-        min.left.right=node;
-        min.left=node;
-    }
-    public void removeNode(Node node) {
-        node.left.right=node.right;
-        node.right.left=node.left;
-    }
-
-    public Node extractMinTree() {
-        Node p =min;
-        if (p == p.right)
-            min = null;
-        else {
-            removeNode(p);
-            min = p.right;
-        }
-        p.left=p.right=p;
-        return p;
-    }
-
+		temp.delete();
+		head = head.right;
+		temp.left = temp.right = temp;
+		return temp;
+	}
 }
