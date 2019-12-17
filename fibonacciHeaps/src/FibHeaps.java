@@ -52,7 +52,8 @@ public class FibHeaps {
         while (wheel != null) {
 
             Node<Integer> x = wheel.getStart();
-            wheel.deleteStart();
+//            wheel.deleteStart();
+            wheel.getStart().delete();
 
             int d = x.degree;
             for (; NArray[d] != null; d++) {
@@ -75,7 +76,7 @@ public class FibHeaps {
                 continue;
             }
             wheel.insertW(n.getData());
-            if((int)n.getData() < wheel.headW())
+            if(n.getData() < wheel.headW())
                 wheel.moveRight();
         }
     }
