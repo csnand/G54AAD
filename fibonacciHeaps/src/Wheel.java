@@ -1,6 +1,6 @@
 public class Wheel<T> {
     private Node<T> start, end;
-    private int count;
+    public int count;
 
     public Wheel () {
         start = null;
@@ -41,6 +41,13 @@ public class Wheel<T> {
         T headW = headW();
         deleteStart();
         return headW;
+    }
+
+    public Node<T> extractNodeW(){
+        if (isEmptyW()) return null;
+        Node<T> node = start;
+        deleteStart();
+        return start;
     }
 
     public Node getStart() {
@@ -103,10 +110,6 @@ public class Wheel<T> {
         if (isEmpty()) return;
         start = start.left;
         end = end.right;
-    }
-
-    public int getCount() {
-        return count;
     }
 
 //----------- doubly circular linked list operations end -----------

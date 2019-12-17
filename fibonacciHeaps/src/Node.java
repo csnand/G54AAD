@@ -23,7 +23,6 @@ public class Node<T> {
             degree++;
             return;
         }
-
         child.insert(node);
         node.parent = this;
         degree++;

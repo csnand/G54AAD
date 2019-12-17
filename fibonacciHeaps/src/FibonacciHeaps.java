@@ -82,17 +82,17 @@ public class FibonacciHeaps {
 		}
 	}
 
-	public Node extract() {
-		Node temp = head;
-		if (temp == temp.right) {
+	public Node<Integer> extract() {
+		Node<Integer> node = head;
+		if (node == node.right) {
 			head = null;
-			temp.left = temp.right = temp;
-			return temp;
+			node.left = node.right = node;
+			return node;
 		}
 
-		temp.delete();
+		node.delete();
 		head = head.right;
-		temp.left = temp.right = temp;
-		return temp;
+		node.left = node.right = node;
+		return node;
 	}
 }
